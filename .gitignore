@@ -1,1 +1,9 @@
-
+venv/
+__pycache__/
+uploads/
+*.mp4
+*.mov
+*.avi
+*.dll
+*.zip
+.DS_Store
