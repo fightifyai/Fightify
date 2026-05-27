@@ -6,7 +6,6 @@ from flask import redirect, request, session
 from datetime import datetime, date, timedelta
 import cv2
 import mediapipe as mp
-mp_pose = mp.solutions.pose
 import math
 import random
 stripe.api_key = "sk_test_51TaAp7LzWytRkK8sJ11gsOrmdvXbtEIeudQO7nqgRu7U7tyzU2PCfiGYA4dCasibrCGbcbVKRizyDN5EkCnVSiqx003gt6RPiZ"
