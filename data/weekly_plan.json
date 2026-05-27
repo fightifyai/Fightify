@@ -1,0 +1,9 @@
+{
+  "monday": ["offense"],
+  "tuesday": ["defense"],
+  "wednesday": ["conditioning"],
+  "thursday": ["offense", "defense"],
+  "friday": ["conditioning", "offense"],
+  "saturday": ["defense", "conditioning"],
+  "sunday": ["offense", "defense", "conditioning"]
+}

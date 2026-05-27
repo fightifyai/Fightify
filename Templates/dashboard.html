@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fightify</title>
+
+<style>
+body {
+    margin:0;
+    font-family:Arial;
+    background:#0b0b0b;
+    color:white;
+}
+
+/* LAYOUT */
+.container {
+    max-width:520px;
+    margin:auto;
+    padding:16px;
+}
+
+/* CARDS */
+.card {
+    background:#141414;
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:12px;
+}
+
+/* HEADER */
+.title {
+    font-size:22px;
+    font-weight:bold;
+}
+
+/* METRICS */
+.grid {
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:10px;
+}
+
+.metric {
+    flex:1;
+    background:#1a1a1a;
+    border-radius:12px;
+    padding:12px;
+    text-align:center;
+}
+
+/* MAIN BUTTON */
+.primary-btn {
+    width:100%;
+    padding:16px;
+    background:#ff3b3b;
+    border:none;
+    border-radius:12px;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+/* SMALL BUTTONS */
+.btn {
+    display:block;
+    text-align:center;
+    padding:12px;
+    margin-top:8px;
+    border-radius:10px;
+    background:#1a1a1a;
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+}
+
+/* SECTION TITLE */
+.section-title {
+    font-size:14px;
+    opacity:0.7;
+    margin-bottom:8px;
+}
+
+/* ANALYSIS CARD */
+.analysis {
+    background:#101010;
+}
+
+/* KEEP VIDEO SECTION SMALLER */
+.small {
+    font-size:13px;
+    opacity:0.8;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="card">
+        <div class="title">🥊 Fightify</div>
+
+        <div class="grid">
+            <div class="metric">
+                🔥<br>{{ user.streak }} days
+            </div>
+            <div class="metric">
+                ⚡<br>{{ user.xp }} XP
+            </div>
+        </div>
+    </div>
+
+    <!-- TODAY MAIN ACTION -->
+    <div class="card">
+
+        <div class="section-title">TODAY’S TRAINING</div>
+
+        <p class="small">
+            Complete 3 short drills to maintain your streak
+        </p>
+
+{% if completed_today %}
+    <button class="primary-btn" style="background:#2ecc71;">
+        ✅ Completed Today
+    </button>
+{% else %}
+    <a href="/today-session">
+        <button class="primary-btn">▶ Start Training</button>
+    </a>
+{% endif %}
+    </div>
+
+    <!-- TODAY GOAL -->
+<div class="card">
+
+    <div class="section-title">📅 TODAY'S FOCUS</div>
+
+    <b>
+        {{ focus|join(', ') if focus else "Mixed Training" }}
+    </b>
+
+    <p class="small" style="margin-top:8px;">
+        Follow today's focus to improve specific fight skills.
+    </p>
+
+    <a class="btn" href="/weekly-plan" style="margin-top:12px;">
+        View Weekly Plan
+    </a>
+
+</div>
+
+    <!-- QUICK NAV -->
+    <div class="card">
+
+        <div class="section-title">TOOLS</div>
+
+        <a class="btn" href="/drills">🥊 Drill Library</a>
+        <a class="btn" href="/training-logs">📊 Training Logs</a>
+        <a class="btn" href="/coach-chat">🧠 Corner Advice</a>
+
+    </div>
+
+    <!-- VIDEO ANALYSIS (kept but secondary) -->
+    <div class="card analysis">
+
+        <div class="section-title">Analyze Video🥊</div>
+
+        <p class="small">
+            Upload a sparring video for feedback on patterns and mistakes.
+        </p>
+
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="video" style="width:100%;margin-top:10px;">
+            <button class="primary-btn" type="submit">Analyze Fight</button>
+        </form>
+
+    </div>
+
+    <!-- LATEST REPORT -->
+    {% if latest %}
+    <div class="card">
+
+        <div class="section-title">🔥 LATEST REPORT</div>
+
+        <p>🥊 Offense: {{ latest.result.offense }}</p>
+        <p>🛡 Defense: {{ latest.result.defense }}</p>
+        <p>⚡ Output: {{ latest.result.output }}</p>
+        <p>🏆 Overall: {{ latest.result.overall }}</p>
+
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

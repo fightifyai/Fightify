@@ -1,0 +1,48 @@
+{
+  "default": [
+    {
+      "date": "2026-04-09 01:16:41.679579",
+      "result": {
+        "defense": 15,
+        "speed": 78,
+        "form": 95,
+        "power": 15,
+        "footwork": 91,
+        "overall": 58
+      },
+      "coach": {
+        "focus": "defense",
+        "title": "\ud83d\udee1 Defensive Breakdown (Critical)",
+        "analysis": "Your guard drops during exchanges and after combinations. This is creating direct counter-hit opportunities.",
+        "fix": "Retract both hands immediately after every punch and keep elbows tight to ribs.",
+        "drills": [
+          "3 rounds shadowboxing ONLY guard return focus",
+          "Slip rope defensive movement (5\u201310 min)",
+          "Light sparring focusing only on defense"
+        ]
+      }
+    },
+    {
+      "date": "2026-04-09 01:17:18.925879",
+      "result": {
+        "defense": 15,
+        "speed": 77,
+        "form": 95,
+        "power": 15,
+        "footwork": 91,
+        "overall": 58
+      },
+      "coach": {
+        "focus": "defense",
+        "title": "\ud83d\udee1 Defensive Breakdown (Critical)",
+        "analysis": "Your guard drops during exchanges and after combinations. This is creating direct counter-hit opportunities.",
+        "fix": "Retract both hands immediately after every punch and keep elbows tight to ribs.",
+        "drills": [
+          "3 rounds shadowboxing ONLY guard return focus",
+          "Slip rope defensive movement (5\u201310 min)",
+          "Light sparring focusing only on defense"
+        ]
+      }
+    }
+  ]
+}

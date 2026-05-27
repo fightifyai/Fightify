@@ -1,0 +1,43 @@
+{
+  "admin": [
+    {
+      "timestamp": "20260408131918",
+      "date": "2026-04-08 13:20",
+      "video": "admin_20260408131918.mp4",
+      "overall": 59.6,
+      "form": 45.0,
+      "power": 78.0,
+      "speed": 68.4,
+      "defense": 45.0,
+      "footwork": 64.3,
+      "xp": 119,
+      "level": 2
+    },
+    {
+      "timestamp": "20260408131750",
+      "date": "2026-04-08 13:18",
+      "video": "admin_20260408131750.mp4",
+      "overall": 59.6,
+      "form": 45.0,
+      "power": 78.0,
+      "speed": 68.4,
+      "defense": 45.0,
+      "footwork": 64.3,
+      "xp": 119,
+      "level": 2
+    },
+    {
+      "timestamp": "20260408131234",
+      "date": "2026-04-08 13:13",
+      "video": "admin_20260408131234.mp4",
+      "overall": 59.6,
+      "form": 45.0,
+      "power": 78.0,
+      "speed": 68.4,
+      "defense": 45.0,
+      "footwork": 64.3,
+      "xp": 119,
+      "level": 2
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+[
+  {
+    "name": "Jab Snap Drill",
+    "category": "offense",
+    "focus": "offense",
+    "type": "offense",
+    "difficulty": "Beginner",
+    "intensity": 6,
+    "rounds": 3,
+    "description": "Throw fast single jabs with full extension and instant recovery to guard.",
+    "coach_tip": "Snap the jab back faster than you throw it.",
+    "goal": "Develop a fast, sharp lead hand",
+    "video": "drills/jab.mp4"
+  },
+
+  {
+    "name": "1-2 Precision Drill",
+    "category": "offense",
+    "focus": "offense",
+    "type": "offense",
+    "difficulty": "Intermediate",
+    "intensity": 7,
+    "rounds": 4,
+    "description": "Practice clean jab-cross combinations while staying balanced.",
+    "coach_tip": "Stay relaxed and rotate through the hips.",
+    "goal": "Build accurate and balanced combinations",
+    "video": "drills/one_two.mp4"
+  },
+
+  {
+    "name": "Hook Rotation Drill",
+    "category": "offense",
+    "focus": "offense",
+    "type": "offense",
+    "difficulty": "Intermediate",
+    "intensity": 7,
+    "rounds": 3,
+    "description": "Throw lead hooks focusing on pivot, hip rotation, and balance.",
+    "coach_tip": "Power starts from the feet, not the arms.",
+    "goal": "Generate stronger hooks with proper mechanics",
+    "video": "drills/hook.mp4"
+  },
+
+  {
+    "name": "Slip Line Drill",
+    "category": "defense",
+    "focus": "defense",
+    "type": "defense",
+    "difficulty": "Beginner",
+    "intensity": 5,
+    "rounds": 4,
+    "description": "Slip left and right under an imaginary punch line while staying balanced.",
+    "coach_tip": "Move your head, not your entire body.",
+    "goal": "Improve defensive rhythm and head movement",
+    "video": "drills/slip.mp4"
+  },
+
+  {
+    "name": "Slip & Counter Drill",
+    "category": "defense",
+    "focus": "defense",
+    "type": "defense",
+    "difficulty": "Intermediate",
+    "intensity": 7,
+    "rounds": 4,
+    "description": "Slip incoming punches and immediately fire back with counters.",
+    "coach_tip": "Defend and attack in one motion.",
+    "goal": "Build reaction speed and counter timing",
+    "video": "drills/slip_counter.mp4"
+  },
+
+  {
+    "name": "Punch Volume Intervals",
+    "category": "conditioning",
+    "focus": "conditioning",
+    "type": "conditioning",
+    "difficulty": "Intermediate",
+    "intensity": 8,
+    "rounds": 5,
+    "description": "Throw nonstop punches for 30 seconds followed by 30 seconds rest.",
+    "coach_tip": "Stay loose even at high pace.",
+    "goal": "Increase output and cardio endurance",
+    "video": "drills/volume.mp4"
+  },
+
+  {
+    "name": "Continuous Shadowboxing",
+    "category": "conditioning",
+    "focus": "conditioning",
+    "type": "conditioning",
+    "difficulty": "Beginner",
+    "intensity": 6,
+    "rounds": 4,
+    "description": "Keep moving and punching continuously without stopping.",
+    "coach_tip": "Flow smoothly between offense and defense.",
+    "goal": "Build stamina and movement fluidity",
+    "video": "drills/shadowboxing.mp4"
+  },
+
+  {
+    "name": "Clap Pushups",
+    "category": "explosive",
+    "focus": "conditioning",
+    "type": "conditioning",
+    "difficulty": "Advanced",
+    "intensity": 9,
+    "rounds": 3,
+    "description": "Explode off the floor and clap between reps.",
+    "coach_tip": "Maximum speed on every repetition.",
+    "goal": "Develop explosive upper-body power",
+    "video": "drills/clap_pushup.mp4"
+  }
+]

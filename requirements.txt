@@ -1,0 +1,6 @@
+flask
+gunicorn
+stripe
+opencv-python
+mediapipe
+numpy

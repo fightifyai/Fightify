@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fightify</title>
+
+<style>
+body {
+    margin:0;
+    font-family:-apple-system, BlinkMacSystemFont, Arial;
+    background: radial-gradient(circle at top, #1a1a1a, #0b0b0b);
+    color:white;
+}
+
+/* CENTER */
+.container {
+    max-width:440px;
+    margin:auto;
+    padding:22px;
+}
+
+/* HERO */
+.hero {
+    text-align:center;
+    margin-top:60px;
+}
+
+.hero h1 {
+    font-size:30px;
+    margin:0;
+}
+
+.hero p {
+    opacity:0.75;
+    font-size:14px;
+    margin-top:10px;
+}
+
+/* VALUE */
+.value {
+    margin-top:25px;
+    font-size:15px;
+    line-height:1.6;
+    opacity:0.9;
+    text-align:center;
+}
+
+/* CTA */
+.cta {
+    margin-top:25px;
+}
+
+.primary-btn {
+    width:100%;
+    padding:16px;
+    background:#ff3b3b;
+    border:none;
+    border-radius:12px;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.subtext {
+    text-align:center;
+    font-size:12px;
+    opacity:0.6;
+    margin-top:8px;
+}
+
+/* FEATURES */
+.features {
+    margin-top:30px;
+    background: rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:16px;
+    padding:18px;
+}
+
+.feature {
+    display:flex;
+    margin-bottom:12px;
+    font-size:14px;
+    line-height:1.4;
+}
+
+.icon {
+    margin-right:10px;
+}
+
+/* LOGIN */
+.login {
+    margin-top:30px;
+    padding:18px;
+    border-radius:14px;
+    background: rgba(255,255,255,0.04);
+}
+
+input {
+    width:100%;
+    padding:12px;
+    margin:6px 0;
+    border:none;
+    border-radius:8px;
+    background:#111;
+    color:white;
+}
+
+/* SECONDARY */
+.secondary {
+    display:block;
+    text-align:center;
+    margin-top:12px;
+    font-size:13px;
+    opacity:0.7;
+    text-decoration:none;
+    color:white;
+}
+
+/* TRUST */
+.trust {
+    text-align:center;
+    font-size:12px;
+    opacity:0.55;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+        <h1>🥊Improve Your Boxing in 30 Days</h1>
+        <p>Train smarter with structured sessions that fix your mistakes automatically.</p>
+    </div>
+
+    <!-- VALUE -->
+    <div class="value">
+        Improve faster with structured training built around your performance — no guessing, no random workouts.
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+        <a href="/paywall">
+            <button class="primary-btn">💳 Unlock Your Training Plan</button>
+        </a>
+        <div class="subtext">€7.99/month • Cancel anytime</div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="features">
+
+        <div class="feature">
+            <div class="icon">🥊</div>
+            <div>Daily training plan built for your level</div>
+        </div>
+
+        <div class="feature">
+            <div class="icon">🧠</div>
+            <div>AI coach feedback after sessions</div>
+        </div>
+
+        <div class="feature">
+            <div class="icon">🎯</div>
+            <div>Fix mistakes and improve technique</div>
+        </div>
+
+        <div class="feature">
+            <div class="icon">⏱</div>
+            <div>Guided rounds like real training</div>
+        </div>
+
+    </div>
+
+    <!-- LOGIN -->
+    <div class="login">
+
+        <div style="text-align:center; font-size:13px; opacity:0.7;">
+            Already have an account?
+        </div>
+
+<form method="POST">
+
+    <input type="email" name="email" placeholder="Email" required>
+
+
+    <button type="submit">
+        Login
+    </button>
+
+</form>
+        <a class="secondary" href="/paywall">
+            💳 New here? Unlock full access
+        </a>
+
+    </div>
+
+    <!-- TRUST -->
+    <div class="trust">
+        🔥 Built for fighters improving every day
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/static/style.css">
+
+<style>
+.grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    align-items: stretch;
+}
+
+.stat {
+    background: #141414 !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+    text-align: center !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 80px;
+    box-sizing: border-box;
+}
+
+.stat span {
+    margin-top: 6px;
+    font-weight: bold;
+    font-size: 18px;
+    display: block;
+}
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h2>🥊 Fight Analysis</h2>
+
+    <div class="header">
+        <div class="score">{{ session.result.overall }}/100</div>
+        <div style="opacity:0.6;">Performance Score</div>
+    </div>
+
+<div class="card">
+    <div class="section-title">CORE PERFORMANCE</div>
+
+    <div style="
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+    ">
+        <div style="
+            background:#141414;
+            border-radius:12px;
+            padding:12px;
+            text-align:center;
+        ">
+            💥 Offense<br>
+            <span>{{ session.result.offense }}</span>
+        </div>
+
+        <div style="
+            background:#141414;
+            border-radius:12px;
+            padding:12px;
+            text-align:center;
+        ">
+            🛡 Defense<br>
+            <span>{{ session.result.defense }}</span>
+        </div>
+
+        <div style="
+            background:#141414;
+            border-radius:12px;
+            padding:12px;
+            text-align:center;
+        ">
+            🔁 Output<br>
+            <span>{{ session.result.output }}</span>
+        </div>
+
+        <div style="
+            background:#141414;
+            border-radius:12px;
+            padding:12px;
+            text-align:center;
+        ">
+            ⭐ Overall<br>
+            <span>{{ session.result.overall }}</span>
+        </div>
+    </div>
+</div>
+
+    <div class="card coach">
+
+        <div class="section-title">🧠 COACH ANALYSIS</div>
+
+        <div class="coach-title">
+            {{ session.result.coach.title }}
+        </div>
+
+        <p><b>🔥 Mistake:</b><br>{{ session.result.coach.mistake }}</p>
+
+        <p><b>📌 Fix:</b><br>{{ session.result.coach.fix }}</p>
+
+        <p><b>🥊 Drills:</b></p>
+        <ul>
+            {% for d in session.result.coach.drills %}
+                <li>{{ d }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+    <a href="/dashboard" class="back">← Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>
