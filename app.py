@@ -386,8 +386,10 @@ def create_checkout_session():
             "price": "price_1TbUpDLzWytRkK8smwIZzjNF",
             "quantity": 1,
         }],
-        success_url="http://127.0.0.1:5000/success",
-        cancel_url="http://127.0.0.1:5000/paywall",
+        BASE_URL = "https://fightify.onrender.com"
+
+        success_url=f"{BASE_URL}/success",
+        cancel_url=f"{BASE_URL}/paywall",
     )
 
     return redirect(checkout_session.url)
