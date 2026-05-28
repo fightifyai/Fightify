@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="card">
+        <h1>🥊 Fight AI</h1>
+
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <input type="file" name="video" accept="video/*" required>
+            <button type="submit">Upload Fight Video</button>
+        </form>
+
+        <div class="small">
+            Upload shadowboxing or sparring clips for AI analysis
+        </div>
+    </div>
+
+</body>
+</html>

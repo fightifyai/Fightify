@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unlock Fightify</title>
+
+<style>
+body {
+    margin:0;
+    font-family:-apple-system, BlinkMacSystemFont, Arial;
+    background: radial-gradient(circle at top, #1a1a1a, #0b0b0b);
+    color:white;
+}
+
+/* CENTER CONTAINER */
+.container {
+    max-width:420px;
+    margin:auto;
+    padding:20px;
+}
+
+/* HEADER */
+.header {
+    text-align:center;
+    margin-top:40px;
+}
+
+.header h1 {
+    font-size:26px;
+    margin:0;
+}
+
+.header p {
+    opacity:0.7;
+    font-size:14px;
+    margin-top:10px;
+}
+
+/* PRICE CARD */
+.price-card {
+    margin:30px 0;
+    padding:20px;
+    border-radius:16px;
+    background: rgba(255,59,59,0.08);
+    border:1px solid rgba(255,59,59,0.25);
+    text-align:center;
+}
+
+.price {
+    font-size:30px;
+    font-weight:bold;
+}
+
+.sub {
+    font-size:13px;
+    opacity:0.7;
+    margin-top:6px;
+}
+
+/* FEATURES */
+.features {
+    margin:20px 0;
+}
+
+.feature {
+    display:flex;
+    align-items:center;
+    margin-bottom:14px;
+    font-size:15px;
+}
+
+.icon {
+    width:26px;
+}
+
+/* BUTTON */
+.button {
+    width:100%;
+    padding:16px;
+    background:#ff3b3b;
+    border:none;
+    border-radius:12px;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* TRUST */
+.trust {
+    text-align:center;
+    font-size:12px;
+    opacity:0.6;
+    margin-top:10px;
+}
+
+/* SOCIAL */
+.social {
+    text-align:center;
+    font-size:12px;
+    opacity:0.6;
+    margin-top:25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🥊 Train Like You Have a Coach</h1>
+        <p>Structured boxing training, real feedback, and guided sessions — anytime.</p>
+    </div>
+
+    <!-- PRICE -->
+    <div class="price-card">
+        <div class="price">€7.99 / month</div>
+        <div class="sub">Less than one gym session</div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="features">
+
+        <div class="feature">
+            <div class="icon">🥊</div>
+            <div>Follow a daily boxing plan — no guessing</div>
+        </div>
+
+        <div class="feature">
+            <div class="icon">🧠</div>
+            <div>Get instant feedback like a real coach</div>
+        </div>
+
+        <div class="feature">
+            <div class="icon">🎯</div>
+            <div>Fix mistakes and improve faster</div>
+        </div>
+
+        <div class="feature">
+            <div class="icon">⏱</div>
+            <div>Train with guided rounds & structure</div>
+        </div>
+
+    </div>
+
+    <!-- CTA -->
+    <form action="/create-checkout-session" method="POST">
+        <button class="button">
+            🔓 Unlock Training
+        </button>
+    </form>
+
+<div class="trust">
+    Cancel anytime • Secure payment with Stripe
+</div>
+
+    <!-- SOCIAL -->
+    <div class="social">
+        🔥 Used by fighters improving every day
+    </div>
+
+</div>
+
+</body>
+</html>

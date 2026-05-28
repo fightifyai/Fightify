@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Today Session</title>
+
+
+
+<style>
+body {
+    margin:0;
+    font-family:-apple-system, BlinkMacSystemFont, Arial;
+    background:#0b0b0b;
+    color:white;
+}
+
+.container {
+    max-width:480px;
+    margin:auto;
+    padding:18px;
+}
+
+.card {
+    background:#141414;
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+img {
+    width:110px;
+    height:110px;
+    border-radius:14px;
+    object-fit:cover;
+    margin:12px auto;
+    display:block;
+}
+
+.title { font-size:20px; font-weight:700; }
+.desc { font-size:13px; opacity:0.75; margin-top:8px; }
+.goal { font-size:12px; opacity:0.6; margin-top:6px; }
+
+.phase {
+    font-size:13px;
+    opacity:0.7;
+    margin-top:10px;
+}
+
+.timer-wrapper {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    margin: 20px auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.progress-ring {
+    position:absolute;
+    transform:rotate(-90deg);
+}
+
+.progress-ring-bg {
+    fill:none;
+    stroke:rgba(255,255,255,0.08);
+    stroke-width:12;
+}
+
+.progress-ring-fill {
+    fill:none;
+    stroke:#ff3b3b;
+    stroke-width:12;
+    stroke-linecap:round;
+
+    stroke-dasharray:691;
+    stroke-dashoffset:0;
+
+    transition:stroke-dashoffset 1s linear;
+}
+
+.timer-content {
+    position:relative;
+    z-index:2;
+    text-align:center;
+}
+
+.timer {
+    font-size:72px;
+    font-weight:900;
+    line-height:1;
+}
+
+button {
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    font-size:15px;
+    font-weight:600;
+    margin-top:10px;
+}
+
+.primary { background:#ff3b3b; color:white; }
+.secondary { background:#1a1a1a; color:white; }
+
+.row {
+    display:flex;
+    gap:10px;
+}
+
+/* 🔥 ROUND OVERLAY */
+#overlay {
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:44px;
+    font-weight:900;
+    background:rgba(0,0,0,0.85);
+    color:white;
+    opacity:0;
+    pointer-events:none;
+    transition:0.2s;
+    z-index:999;
+}
+
+.complete {
+    text-align:center;
+    padding:60px 20px;
+}
+
+.complete h1 {
+    font-size:26px;
+}
+
+.complete p {
+    opacity:0.7;
+}
+
+.big {
+    font-size:42px;
+    margin:20px 0;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔥 ROUND OVERLAY -->
+<div id="overlay"></div>
+
+<div class="container">
+
+<div class="card" id="app">
+
+<video id="video" autoplay loop muted playsinline
+       style="width:140px;height:140px;object-fit:cover;border-radius:14px;margin:15px auto;display:block;border:1px solid rgba(255,255,255,0.1);">
+
+    <source src="{{ url_for('static', filename=drills[0].video) }}" type="video/mp4">
+
+</video>
+
+    <div class="title" id="name">{{ drills[0].name }}</div>
+    <div class="desc" id="desc">{{ drills[0].description }}</div>
+    <div class="goal" id="goal">🎯 {{ drills[0].goal }}</div>
+
+<div class="timer-wrapper">
+
+    <svg class="progress-ring" width="260" height="260">
+
+        <circle
+            class="progress-ring-bg"
+            cx="130"
+            cy="130"
+            r="110"
+        />
+
+        <circle
+            class="progress-ring-fill"
+            cx="130"
+            cy="130"
+            r="110"
+        />
+
+    </svg>
+
+    <div class="timer-content">
+
+        <div class="phase" id="phase">
+            GET READY
+        </div>
+
+        <div class="timer" id="timer">
+            5
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+    <button class="primary" onclick="start()">Start</button>
+    <button class="secondary" onclick="pause()">Pause</button>
+</div>
+
+<div class="row">
+    <button class="secondary" onclick="skipRound()">
+        Skip Round
+    </button>
+
+    <button class="secondary" onclick="skip()">
+        Skip Drill
+    </button>
+</div>
+<button class="secondary" onclick="exitSession()">
+    ← Back to Dashboard
+</button>
+
+</div>
+
+<!-- 🔊 SOUNDS -->
+<audio id="bell" src="{{ url_for('static', filename='sounds/bell.mp3') }}"></audio>
+<audio id="xpSound" src="{{ url_for('static', filename='sounds/xp.mp3') }}"></audio>
+<audio id="countdown" src="{{ url_for('static', filename='sounds/countdown.mp3') }}"></audio>
+<audio id="ambient" src="{{ url_for('static', filename='sounds/ambient.mp3') }}" loop></audio>
+
+<script>
+
+let drills = {{ drills | tojson }};
+let index = 0;
+
+let phase = "ready";
+let time = 5;
+
+let roundTime = 30;
+let restTime = 10;
+
+
+let round = 1;
+let totalRounds = 0;
+let lastPhase = "";
+
+let interval;
+let running = false;
+
+const ring = document.querySelector(".progress-ring-fill");
+
+const radius = 110;
+const circumference = 2 * Math.PI * radius;
+
+/* 🔥 OVERLAY */
+function showOverlay(text) {
+    const o = document.getElementById("overlay");
+    o.innerText = text;
+    o.style.opacity = "1";
+
+    setTimeout(() => {
+        o.style.opacity = "0";
+    }, 800);
+}
+
+/* 🔊 SOUNDS */
+function playBell() {
+    let b = document.getElementById("bell");
+    b.currentTime = 0;
+    b.play().catch(()=>{});
+
+    if (navigator.vibrate) navigator.vibrate(100);
+}	
+
+function playCountdown() {
+    let c = document.getElementById("countdown");
+    c.currentTime = 0;
+    c.play().catch(()=>{});
+}
+
+function playXP() {
+    let s = document.getElementById("xpSound");
+    s.currentTime = 0;
+    s.play().catch(()=>{});
+}
+
+/* UI */
+function updateUI() {
+    let d = drills[index];
+
+    document.getElementById("name").innerText = d.name;
+    document.getElementById("desc").innerText = d.description;
+    document.getElementById("goal").innerText = "🎯 " + d.goal;
+
+    document.getElementById("phase").innerText =
+        phase.toUpperCase() + " • Round " + round + "/" + totalRounds;
+
+    document.getElementById("timer").innerText = time;
+}
+
+function updateRing(timeLeft, totalTime) {
+
+    if (!totalTime || totalTime <= 0) return;
+
+    const progress = timeLeft / totalTime;
+    const offset = circumference * (1 - progress);
+
+    ring.style.strokeDashoffset = offset;
+
+    if (phase === "round") {
+        ring.style.stroke = "#ff3b3b";
+    } else if (phase === "rest") {
+        ring.style.stroke = "#3b82f6";
+    } else {
+        ring.style.stroke = "#22c55e";
+    }
+}
+
+
+
+/* START */
+function start() {
+
+    if (running) return;
+
+running = true;
+
+const ambient = document.getElementById("ambient");
+ambient.volume = 1;
+ambient.play().catch(()=>{});
+
+if (!totalRounds) {
+    totalRounds = drills[index].rounds;
+}
+
+if (!interval && phase === "ready" && time === 5 && round === 1) {
+    showOverlay("ROUND " + round);
+    playBell();
+}
+
+interval = setInterval(() => {
+
+    time--;
+
+    // 🔥 TIMER EFFECTS
+    if (phase === "round" && time <= 5) {
+        document.getElementById("timer").style.color = "red";
+        document.getElementById("timer").style.transform = "scale(1.1)";
+        navigator.vibrate?.(50);
+    } else {
+        document.getElementById("timer").style.color = "white";
+        document.getElementById("timer").style.transform = "scale(1)";
+    }
+
+    if (time === 3) playCountdown();
+
+    if (phase === "round" && time === 15) {
+        document.getElementById("phase").innerText = "KEEP PUSHING 🔥";
+    }
+
+    // ✅ UI ONCE
+    updateUI();
+
+    // ✅ RING (SAFE VERSION)
+    let total = roundTime;
+    if (phase === "rest") total = restTime;
+    if (phase === "ready") total = 5;
+
+    updateRing(time, total);
+
+    // 🔥 BACKGROUND SWITCH
+    if (phase !== lastPhase) {
+        lastPhase = phase;
+
+        if (phase === "round") document.body.style.background = "#0b0b0b";
+        else if (phase === "rest") document.body.style.background = "#070a12";
+        else document.body.style.background = "#0a0a0a";
+    }
+
+    // ⏱️ PHASE LOGIC
+    if (time <= 0) {
+
+
+        if (phase === "ready") {
+            phase = "round";
+            time = roundTime;
+        }
+
+        else if (phase === "round") {
+            if (round >= totalRounds) {
+                nextDrill();
+                return;
+            }
+
+            phase = "rest";
+            time = restTime;
+            showOverlay("REST");
+        }
+
+        else if (phase === "rest") {
+            round++;
+
+            navigator.vibrate?.(120);
+            showOverlay("ROUND " + round);
+
+            phase = "round";
+            time = roundTime;
+        }
+    }
+
+}, 1000);
+}
+
+/* PAUSE */
+function pause() {
+    clearInterval(interval);
+    running = false;
+}
+function exitSession() {
+
+    clearInterval(interval);
+    interval = null;
+    running = false;
+
+    const ambient = document.getElementById("ambient");
+    if (ambient) {
+        ambient.pause();
+        ambient.currentTime = 0;
+    }
+
+    window.location.href = "/dashboard";
+}
+
+/* SKIP ROUND */
+function skipRound() {
+
+    clearInterval(interval);
+    running = false;
+
+    // last round = finish drill
+    if (round >= totalRounds && phase === "round") {
+        finishSession();
+        return;
+    }
+
+    // round -> rest
+    if (phase === "round") {
+        phase = "rest";
+        time = restTime;
+    }
+
+    // rest -> next round
+    else if (phase === "rest") {
+        round++;
+        phase = "round";
+        time = roundTime;
+    }
+
+    showOverlay("SKIP ROUND");
+
+    updateUI();
+}
+
+/* SKIP */
+let skipCount = 0;
+let maxSkips = 2;
+
+function skip() {
+
+    if (skipCount >= maxSkips) {
+        showOverlay("NO MORE SKIPS");
+        return;
+    }
+
+    skipCount++;
+
+    clearInterval(interval);
+    running = false;
+
+    nextDrill();
+
+    showOverlay("SKIPPED " + skipCount + "/" + maxSkips);
+}
+
+/* NEXT */
+function nextDrill() {
+
+
+
+    index++;
+
+    if (index >= drills.length) {
+        finishSession();
+        return;
+    }
+
+    totalRounds = drills[index].rounds;
+
+    phase = "ready";
+    time = 5;
+    round = 1;
+
+document.querySelector("video source").src =
+    "/static/" + drills[index].video;
+
+document.querySelector("video").load();
+
+    updateUI(); // 🔥 THIS WAS MISSING
+}	
+
+/* FINISH */
+function finishSession() {
+
+const ambient = document.getElementById("ambient");
+if (ambient) {
+    ambient.pause();
+    ambient.currentTime = 0;
+}
+
+playXP();
+
+    let xp = 50;
+    let perfect = Math.random() > 0.4;
+
+    fetch("/complete-session", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ perfect })
+    });
+
+    document.getElementById("app").innerHTML = `
+        <div class="complete">
+            <div class="big">🔥</div>
+
+            <h1>${perfect ? "Perfect Session" : "Session Complete"}</h1>
+            <p>${perfect ? "Clean work. Sharp and consistent." : "Good work today."}</p>
+
+            <div id="xp" style="font-size:32px;margin:20px 0;">+0 XP</div>
+
+            <button class="primary" onclick="location.href='/dashboard'">
+                Continue
+            </button>
+        </div>
+    `;
+
+    let current = 0;
+
+    let intervalXP = setInterval(() => {
+
+        current += 2;
+
+        document.getElementById("xp").innerText = "+" + current + " XP";
+
+        if (current >= xp) {
+            clearInterval(intervalXP);
+        }
+
+    }, 40);
+}
+
+updateUI();
+
+document.getElementById("timer").style.transform = "scale(1.05)";
+
+setTimeout(() => {
+    document.getElementById("timer").style.transform = "scale(1)";
+}, 80);
+
+updateRing(time, 5);
+
+</script>
+
+</body>
+</html>
