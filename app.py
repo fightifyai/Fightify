@@ -9,6 +9,7 @@ import mediapipe as mp
 import math
 import random
 stripe.api_key = "sk_test_51TaAp7LzWytRkK8sJ11gsOrmdvXbtEIeudQO7nqgRu7U7tyzU2PCfiGYA4dCasibrCGbcbVKRizyDN5EkCnVSiqx003gt6RPiZ"
+BASE_URL = "https://fightify.onrender.com"
 
 user_data = {}
 
@@ -386,7 +387,6 @@ def create_checkout_session():
             "price": "price_1TbUpDLzWytRkK8smwIZzjNF",
             "quantity": 1,
         }],
-        BASE_URL = "https://fightify.onrender.com"
 
         success_url=f"{BASE_URL}/success",
         cancel_url=f"{BASE_URL}/paywall",
