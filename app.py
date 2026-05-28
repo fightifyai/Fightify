@@ -364,6 +364,32 @@ def dashboard():
 def paywall():
     return render_template("paywall.html")
 
+@app.route("/webhook", methods=["POST"])
+def stripe_webhook():
+    payload = request.data
+
+    event = stripe.Event.construct_from(
+        json.loads(payload),
+        stripe.api_key
+    )
+
+    if event["type"] == "checkout.session.completed":
+        session_obj = event["data"]["object"]
+
+        email = session_obj.get("customer_details", {}).get("email")
+
+        if email:
+            users = load_users()
+
+            if email not in users:
+                users[email] = {"paid": True}
+            else:
+                users[email]["paid"] = True
+
+            save_users(users)
+
+    return "OK", 200
+
 @app.route("/complete-session", methods=["POST"])
 def complete_session():
     if "user" not in session:
